@@ -47,7 +47,7 @@ elastic_pool_sku = {
     name     = "GP_Gen5"  // Example SKU, adjust according to your needs
     tier     = "GeneralPurpose"
     family   = "Gen5"
-    capacity = 50
+    capacity = 40
   }
 
   create_mode           = var.create_mode
