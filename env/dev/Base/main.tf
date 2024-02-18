@@ -36,6 +36,52 @@ module "storage"{
  
 }
 
+ module "mssql"{
+  source                = "../../../modules/mssql/"
+  resource_group_name   = data.azurerm_resource_group.rg1.name
+  is_elastic_pool = true
+  location              = data.azurerm_resource_group.rg1.location
+  name               = "${var.db_name}-${random_id.vm.hex}-1"
+  max_size_gb   = var.elastic_pool_max_size_gb
+elastic_pool_sku = {
+    name     = "GP_Gen5"  // Example SKU, adjust according to your needs
+    tier     = "GeneralPurpose"
+    family   = "Gen5"
+    capacity = 40
+  }
+
+  create_mode           = var.create_mode
+  administrator_login = var.administrator_login
+  administrator_login_password = var.administrator_login_password
+  azuread_administrator = var.azuread_administrator
+  enable_private_endpoint      = var.enable_private_endpoint
+  subnet_id                    = "/subscriptions/08fe4261-2508-4d2f-8c81-f570ad6b3bf1/resourceGroups/genpact-demo2/providers/Microsoft.Network/virtualNetworks/vm-vnet/subnets/pe-snet"
+  enable_firewall_rules       = var.enable_firewall_rules
+  firewall_rules = var.firewall_rules
+  virtual_network_id = "/subscriptions/08fe4261-2508-4d2f-8c81-f570ad6b3bf1/resourceGroups/genpact-demo2/providers/Microsoft.Network/virtualNetworks/vm-vnet"
+ }
+
+ module "linuxservers" {
+    source              = "../../../modules/linux_vm/"
+    resource_group_name = azurerm_resource_group.rg1.name
+    location            = azurerm_resource_group.rg1.location
+    vm_hostname         = "mylinuxvm"
+    nb_public_ip        = "1"
+    remote_port         = "22"
+    nb_instances        = "1"
+    vm_os_simple      = "UbuntuServer"
+    vnet_subnet_id      =  module.vnet.subnet_ids_map["vm-snet"]
+    boot_diagnostics    = "true"
+    delete_os_disk_on_termination = "true"
+    data_disk           = "true"
+    data_disk_size_gb   = "64"
+    data_sa_type        = "Premium_LRS"
+    tags                = {
+                            environment = "dev"
+                            costcenter  = "it"
+                          }
+  }
+
 
 
 
