@@ -12,7 +12,7 @@ virtual_network_name = "vm-vnet"
 
 
 #storage account settings
-  storage_account_name = "genpactstoragemodule12"
+  storage_account_name = "demostoargeaccountaztf"
   storage_account_tier = "Standard"
   storage_account_replication_type = "LRS"
   storage_account_kind = "StorageV2"
