@@ -1,5 +1,5 @@
 # General settings
-resource_group_name = "genpact-demo3"
+resource_group_name = "terraform-demo"
 location = "eastus"
 
 # VNet settings
