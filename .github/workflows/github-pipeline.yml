@@ -16,7 +16,6 @@ jobs:
         uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: latest
-          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
       # Initialize Terraform
       - name: Terraform Init
