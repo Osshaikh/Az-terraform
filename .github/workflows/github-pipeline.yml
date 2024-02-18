@@ -1,10 +1,7 @@
 name: Terraform Workflow
 
 # Trigger the workflow on push to the main branch
-on:
-  push:
-    branches:
-      - main
+on: workflow_dispatch
 
 jobs:
   terraform:
